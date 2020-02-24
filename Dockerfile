@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM osgeo/gdal:ubuntu-small-latest
 
 LABEL maintainer="Just van den Broecke <justb4@gmail.com>"
 
@@ -13,8 +13,6 @@ ARG ADD_PYTHON_DEB_PACKAGES=""
 # ARG ADD_PYTHON_PIP_PACKAGES="scikit-learn==0.18"
 ARG ADD_PYTHON_PIP_PACKAGES=""
 
-# Tricky: must match installed GDAL version (2.1.2 on Stretch)
-ARG GDAL_PYTHON_BINDINGS_VERSION="2.4.0"
 
 #
 # ENV settings
@@ -47,7 +45,6 @@ RUN \
     # && pip3 install GDAL==`gdalinfo --version | cut -d' ' -f2 | cut -d',' -f1` \
     && export CPLUS_INCLUDE_PATH=/usr/include/gdal \
     && export C_INCLUDE_PATH=/usr/include/gdal \
-    && pip3 install GDAL==${GDAL_PYTHON_BINDINGS_VERSION} \
     # Optional packages to install via Pip
 	&& if [ "x${PYTHON_EXTRA_PIP_PACKAGES}" = "x" ] ;\
 	    then \
