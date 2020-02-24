@@ -12,17 +12,13 @@ ARG LOCALE="en_US.UTF-8"
 ARG ADD_PYTHON_DEB_PACKAGES=""
 # ARG ADD_PYTHON_PIP_PACKAGES="scikit-learn==0.18"
 ARG ADD_PYTHON_PIP_PACKAGES=""
-
-# Tricky: must match installed GDAL version (2.1.2 on Stretch)
-ARG GDAL_PYTHON_BINDINGS_VERSION="3.0.0"
-
 #
 # ENV settings
 #
 ENV TZ=${TIMEZONE} \
    DEBIAN_FRONTEND="noninteractive" \
-   BUILD_DEPS="tzdata build-essential apt-utils libgdal-dev" \
-   PYTHON_CORE_PACKAGES="locales python3-requests python3-tz python3-numpy python3-pandas python3-setuptools python3-pip python3-lxml python3-psycopg2 python3-jinja2 gdal-bin" \
+   BUILD_DEPS="tzdata build-essential apt-utils" \
+   PYTHON_CORE_PACKAGES="locales python3-requests python3-tz python3-numpy python3-pandas python3-setuptools python3-pip python3-lxml python3-psycopg2 python3-jinja2" \
    PYTHON_EXTRA_DEB_PACKAGES="${ADD_PYTHON_DEB_PACKAGES}"  \
    PYTHON_EXTRA_PIP_PACKAGES="${ADD_PYTHON_PIP_PACKAGES}"
 
@@ -47,7 +43,6 @@ RUN \
     # && pip3 install GDAL==`gdalinfo --version | cut -d' ' -f2 | cut -d',' -f1` \
     && export CPLUS_INCLUDE_PATH=/usr/include/gdal \
     && export C_INCLUDE_PATH=/usr/include/gdal \
-    && pip3 install GDAL==${GDAL_PYTHON_BINDINGS_VERSION} \
     # Optional packages to install via Pip
 	&& if [ "x${PYTHON_EXTRA_PIP_PACKAGES}" = "x" ] ;\
 	    then \
