@@ -1,4 +1,4 @@
-FROM python:3.6-slim-stretch
+FROM python:3.8-slim-buster
 
 LABEL maintainer="Just van den Broecke <justb4@gmail.com>"
 
@@ -14,7 +14,7 @@ ARG ADD_PYTHON_DEB_PACKAGES=""
 ARG ADD_PYTHON_PIP_PACKAGES=""
 
 # Tricky: must match installed GDAL version (2.1.2 on Stretch)
-ARG GDAL_PYTHON_BINDINGS_VERSION="2.1.3"
+ARG GDAL_PYTHON_BINDINGS_VERSION="2.4.0"
 
 #
 # ENV settings
@@ -60,9 +60,11 @@ RUN \
 		&& python3 setup.py install  \
 		&& apt-get remove --purge ${BUILD_DEPS} -y \
 		&& apt autoremove -y  \
-        && rm -rf /var/lib/apt/lists/* 
+        && rm -rf /var/lib/apt/lists/*
 
-ENV LANG="${LOCALE}" LANGUAGE="${LOCALE}"
+ENV LANG="${LOCALE}" LANGUAGE="${LOCALE}"  PYTHONPATH="/stetl/stetl" \
+   STETL_HOME="/stetl/stetl"
+
 RUN echo "For ${TZ} date=`date`" && echo "Locale=`locale`"
 
 # Run examples
