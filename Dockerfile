@@ -14,7 +14,7 @@ ARG ADD_PYTHON_DEB_PACKAGES=""
 ARG ADD_PYTHON_PIP_PACKAGES=""
 
 # Tricky: must match installed GDAL version (2.1.2 on Stretch)
-ARG GDAL_PYTHON_BINDINGS_VERSION="3.0.4"
+ARG GDAL_PYTHON_BINDINGS_VERSION="3.0.0"
 
 #
 # ENV settings
